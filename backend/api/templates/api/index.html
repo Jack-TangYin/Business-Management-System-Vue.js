@@ -1,0 +1,79 @@
+{% load static %}
+<!-- Loads Django's static template tag, allowing us to reference static files, such as JavaScript, using `{% static 'path/to/file' %}` syntax -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff and Task Management</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <!-- The main container for our Vue application, styled with Bootstrap's `.container` class to center and add spacing. 
+         `id="app"` is used to bind this element to our Vue instance -->
+    <div id="app" class="container my-5">
+      <!-- Page Header: Displays the title, centered and styled with Bootstrap's text and margin utilities -->
+      <h1 class="text-center text-secondary mb-5">Staff and Task Management</h1>
+
+      <!-- Bootstrap Tabs Navigation: Enables navigation between different sections of the application (Staff, Task, Assignments) -->
+      <ul class="nav nav-tabs mb-4">
+        <!-- Each `li` represents a tab. The `data-toggle="tab"` attribute enables Bootstrap's tab switching functionality -->
+        <li class="nav-item">
+          <!-- `href="#staff"` links this tab to the content with the id `staff` -->
+          <a class="nav-link active" data-toggle="tab" href="#staff">Staff</a>
+        </li>
+        <li class="nav-item">
+          <!-- `href="#task"` links this tab to the content with the id `task` -->
+          <a class="nav-link" data-toggle="tab" href="#task">Task</a>
+        </li>
+        <li class="nav-item">
+          <!-- `href="#assignment"` links this tab to the content with the id `assignment` -->
+          <a class="nav-link" data-toggle="tab" href="#assignment"
+            >Assignments</a
+          >
+        </li>
+      </ul>
+
+      <!-- Tab Content Section: Contains content for each of the tabs -->
+      <div class="tab-content">
+        <!-- Staff Tab Content -->
+        <div id="staff" class="tab-pane fade show active">
+          <!-- Vue component `staff-list`, passing the `staffList` data and listening for the `update-staff-list` event to trigger `fetchStaff` in the parent component -->
+          <staff-list
+            :staff-list="staffList"
+            @update-staff-list="fetchStaff"
+          ></staff-list>
+        </div>
+
+        <!-- Task Tab Content -->
+        <div id="task" class="tab-pane fade">
+          <!-- Vue component `task-list`, passing the `taskList` data and listening for the `update-task-list` event to trigger `fetchTasks` in the parent component -->
+          <task-list
+            :task-list="taskList"
+            @update-task-list="fetchTasks"
+          ></task-list>
+        </div>
+
+        <!-- Assignment Tab Content -->
+        <div id="assignment" class="tab-pane fade">
+          <!-- Vue component `assignment-list`, passing `staffList`, `taskList`, and `assignments` data. 
+                     Listens for the `update-assignments` event to trigger `fetchAssignments` in the parent component -->
+          <assignment-list
+            :staff-list="staffList"
+            :task-list="taskList"
+            :assignments="assignments"
+            @update-assignments="fetchAssignments"
+          ></assignment-list>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'api/main.js' %}"></script>
+  </body>
+</html>
