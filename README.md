@@ -1,4 +1,4 @@
-# Template for ECS639U Individual Coursework
+# Individual Coursework
 
 This template should be used as the starting point for your individual coursework in the module ECS639U Web Programming (at Queen Mary University of London). Module leader: Paulo Oliva <[p.oliva@qmul.ac.uk](mailto:p.oliva@qmul.ac.uk)>
 
